@@ -1,6 +1,7 @@
 # SolarHome UI/UX Prototype
 
 **SolarHome** is a high-fidelity Proof of Concept (POC) designed to demonstrate a seamless, end-to-end user experience for residential solar energy management. This prototype bridges the gap between initial home planning, real-time energy monitoring, and professional consultant validation.
+![licensed-image](https://github.com/user-attachments/assets/fd2148fe-b866-4586-92ab-39fd6f1d8a32)
 
 ---
 
@@ -31,39 +32,9 @@
 
 ---
 
-## 📂 Installation & Local Setup
+## Installation & Local Setup
 
 Since this is a frontend-heavy POC, it runs entirely in the browser.
 
 1.  **Clone/Save the Code:** Save the HTML code provided into an `index.html` file.
-2.  **CSS Dependency:** The prototype looks for a `styles.css` file. To ensure animations (like the energy flow and alerts) work correctly, create a `styles.css` in the same folder and add:
-
-```css
-/* Core Layout & Transitions */
-.page-content, .sub-page { display: none; }
-.page-content.active, .sub-page.active { display: block; }
-.step { display: none; transition: all 0.3s ease; }
-.step.active { display: block; }
-
-/* 3D Roof Transformations */
-.perspective-1000 { perspective: 1000px; }
-.roof-svg { 
-    width: 180px; height: 180px; fill: #16a34a; 
-    transition: transform 0.2s ease-out; transform-style: preserve-3d; 
-}
-
-/* Animations */
-.live-pulse { animation: pulse 2s infinite; }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
-.energy-flow-line { stroke-dasharray: 8; animation: flow 1s linear infinite; }
-@keyframes flow { to { stroke-dashoffset: -16; } }
-
-/* Alert Banner */
-.alert-banner {
-    position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-    width: 90%; max-width: 500px; background: #dc2626; color: white;
-    padding: 1.5rem; border-radius: 1rem; transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 1000; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
-}
-.alert-banner.active { bottom: 24px; }
+2.  **Open the html file in a browser**
