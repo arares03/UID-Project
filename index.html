@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarHome UI/UX Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <header class="bg-white border-b border-gray-200">
+            <div class="p-4 md:p-6 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-green-600">SolarHome</h1>
+                <nav class="flex space-x-2 md:space-x-4">
+                    <button id="nav-wizard" class="nav-btn px-3 py-2 rounded-lg text-sm md:text-base font-medium text-white bg-green-600">Planner</button>
+                    <button id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm md:text-base font-medium text-gray-600 bg-gray-100 hover:bg-gray-200">Monitor</button>
+                    <button id="nav-consultant" class="nav-btn px-3 py-2 rounded-lg text-sm md:text-base font-medium text-gray-600 bg-gray-100 hover:bg-gray-200">Consultant</button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="p-4 md:p-8">
+
+            <div id="page-wizard" class="page-content">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome, Miller Family!</h2>
+                    <p class="text-lg text-gray-600 mb-8">Let's plan your new solar home. We'll guide you step-by-step.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-inner">
+                        
+                        <div id="step-1" class="step active">
+                            <h3 class="text-2xl font-bold mb-2 text-gray-800">Step 1: Your Roof</h3>
+                            <p class="text-gray-600 mb-6">Select your roof type and orientation to calculate solar potential.</p>
+                            
+            <label class="block text-lg font-semibold text-gray-700 mb-3">1. Select Your Roof Type</label>
+            <div class="flex space-x-3 mb-8">
+                <button class="roof-type-btn active-roof" data-roof="gable">
+                    <span>🏠 Gable</span>
+                </button>
+                <button class="roof-type-btn" data-roof="hip">
+                    <span>🏘️ Hip</span>
+                </button>
+                <button class="roof-type-btn" data-roof="flat">
+                    <span>🏢 Flat</span>
+                </button>
+            </div>
+
+            <label class="block text-lg font-semibold text-gray-700 mb-3">2. Orient Your House</label>
+            <p class="text-sm text-gray-500 mb-4">🧭 Drag the slider to match your house's orientation (South-facing is ideal).</p>
+            
+            <div id="roof-preview-container" class="my-6 h-64 flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-6 perspective-1000 overflow-hidden">
+                                <svg id="roof-gable" class="roof-svg active-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 40 L 50 10 L 90 40 L 90 90 L 10 90 Z" />
+                                    <path d="M 10 40 L 50 10 L 50 90 L 10 90" fill-opacity="0.4"/>
+                                    <path d="M 50 10 L 90 40 L 90 90 L 50 90" fill-opacity="0.2"/>
+                                </svg>
+                                <svg id="roof-hip" class="roof-svg hidden" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 50 L 30 30 L 70 30 L 90 50 L 70 70 L 30 70 Z" />
+                                    <path d="M 10 50 L 30 30 L 50 40 Z" fill-opacity="0.4"/>
+                                    <path d="M 30 30 L 70 30 L 50 40 Z" fill-opacity="0.2"/>
+                                    <path d="M 70 30 L 90 50 L 50 40 Z" fill-opacity="0.4"/>
+                                    <path d="M 10 50 L 30 70 L 50 60 Z" fill-opacity="0.2"/>
+                                    <path d="M 30 70 L 70 70 L 50 60 Z" fill-opacity="0.4"/>
+                                    <path d="M 70 70 L 90 50 L 50 60 Z" fill-opacity="0.2"/>
+                                </svg>
+                                <svg id="roof-flat" class="roof-svg hidden" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 30 L 90 30 L 90 70 L 10 70 Z" />
+                                    <path d="M 10 30 L 30 20 L 110 20 L 90 30 Z" fill-opacity="0.2"/>
+                                    <path d="M 90 30 L 110 20 L 110 60 L 90 70 Z" fill-opacity="0.4"/>
+                                </svg>
+                            </div>
+                            
+                            <input type="range" id="roof-rotation" min="-60" max="60" value="0" class="w-full mt-4">
+                            <p class="text-center text-gray-600 mt-2" id="rotation-label">
+                                0° (South) - <span class="font-semibold text-green-600">Optimal</span>
+                            </p>
+
+                            <button class="wizard-next bg-green-600 text-white px-8 py-3 rounded-xl font-semibold mt-8 hover:bg-green-700 hover:shadow-lg transition-all duration-200 w-full md:w-auto" data-next="step-2">
+                                Next: Household Profile →
+                            </button>
+                        </div>
+
+                        <div id="step-2" class="step">
+                            <h3 class="text-2xl font-bold mb-2 text-gray-800">Step 2: Household Profile</h3>
+                            <p class="text-gray-600 mb-8">Tell us about your household to personalize your energy plan.</p>
+                            
+                            <div class="space-y-10">
+                                <div>
+                                    <label class="block text-lg font-semibold text-gray-700 mb-4">How many people in your home?</label>
+                                    <div class="stepper-control">
+                                        <button class="stepper-btn" id="people-minus">−</button>
+                                        <div class="stepper-value" id="people-value">4</div>
+                                        <button class="stepper-btn" id="people-plus">+</button>
+                                    </div>
+                                    <p class="text-center text-sm text-gray-500 mt-3">👥 More people = more energy needs</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-lg font-semibold text-gray-700 mb-4">What's your house size?</label>
+                                    <div class="segmented-control">
+                                        <button class="segment-option" data-size="small">
+                                            <div>🏠 Small</div>
+                                            <div class="text-xs mt-1 opacity-70">&lt; 1,500 sq ft</div>
+                                        </button>
+                                        <button class="segment-option active" data-size="medium">
+                                            <div>🏡 Medium</div>
+                                            <div class="text-xs mt-1 opacity-70">1,500-2,500 sq ft</div>
+                                        </button>
+                                        <button class="segment-option" data-size="large">
+                                            <div>🏘️ Large</div>
+                                            <div class="text-xs mt-1 opacity-70">&gt; 2,500 sq ft</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-3 mt-10">
+                                <button class="wizard-prev bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200" data-prev="step-1">
+                                    ← Back
+                                </button>
+                                <button class="wizard-next bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 hover:shadow-lg transition-all duration-200 flex-1" data-next="step-3">
+                                    Next: Appliances →
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="step-3" class="step">
+                            <h3 class="text-2xl font-bold mb-2 text-gray-800">Step 3: What will you be powering?</h3>
+                            <p class="text-gray-600 mb-6">Select your major appliances. This helps create your energy plan.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <label class="flex items-center p-5 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all duration-200 card-hover">
+                                    <input type="checkbox" class="appliance-check">
+                                    <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2"></path>
+                                    </svg>
+                                    <div class="ml-3 flex-1">
+                                        <span class="text-lg font-semibold text-gray-800">A/C Unit</span>
+                                        <p class="text-sm text-gray-500">~3.5 kW</p>
+                                    </div>
+                                </label>
+                                
+                                <label class="flex items-center p-5 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all duration-200 card-hover">
+                                    <input type="checkbox" class="appliance-check">
+                                    <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10H4.228c-.464 0-.909.184-1.239.514l-2.43 2.43a1 1 0 000 1.414l2.43 2.43c.33.33.775.514 1.239.514H14M14 10l7-7m0 0l-7 7m7-7v14m0-14H18"></path>
+                                    </svg>
+                                    <div class="ml-3 flex-1">
+                                        <span class="text-lg font-semibold text-gray-800">Washer/Dryer</span>
+                                        <p class="text-sm text-gray-500">~2 kW</p>
+                                    </div>
+                                </label>
+                                
+                                <label class="flex items-center p-5 border-2 border-green-400 bg-green-50 rounded-xl cursor-pointer hover:border-green-500 transition-all duration-200 card-hover">
+                                    <input type="checkbox" class="appliance-check" checked>
+                                    <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                                    </svg>
+                                    <div class="ml-3 flex-1">
+                                        <span class="text-lg font-semibold text-gray-800">Pool Pump</span>
+                                        <p class="text-sm text-gray-500">~1.5 kW</p>
+                                    </div>
+                                </label>
+                                
+                                <label class="flex items-center p-5 border-2 border-green-400 bg-green-50 rounded-xl cursor-pointer hover:border-green-500 transition-all duration-200 card-hover">
+                                    <input type="checkbox" class="appliance-check" checked>
+                                    <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                                    </svg>
+                                    <div class="ml-3 flex-1">
+                                        <span class="text-lg font-semibold text-gray-800">Electric Car</span>
+                                        <p class="text-sm text-gray-500">~7 kW charging</p>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="flex gap-3 mt-10">
+                                <button class="wizard-prev bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200" data-prev="step-2">
+                                    ← Back
+                                </button>
+                                <button class="wizard-next bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 hover:shadow-lg transition-all duration-200 flex-1" data-next="step-4">
+                                    Finish & Get Report ✨
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="step-4" class="step">
+                            <h3 class="text-2xl font-bold mb-2 text-gray-800">🎉 Your Solar Report</h3>
+                            <p class="text-gray-600 mb-6">Based on your inputs, here's what we found!</p>
+                            
+                            <div class="text-center p-8 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-lg mb-6 card-hover">
+                                <span class="text-lg text-gray-600 font-medium">Your Solar Score</span>
+                                <h4 class="text-8xl font-bold text-green-600 my-4 animate-pulse">A+</h4>
+                                <div class="text-2xl text-gray-800 mb-2">Your roof can power</div>
+                                <div class="text-6xl font-bold text-green-600 my-3">110%</div>
+                                <div class="text-2xl text-gray-800">of your home! ⚡</div>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-2xl shadow-lg mb-6">
+                                <h4 class="text-xl font-bold text-gray-800 mb-4">📊 Recommended System:</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-green-50 p-4 rounded-xl border-2 border-green-200">
+                                        <div class="text-sm text-gray-600 mb-1">Solar Panels</div>
+                                        <div class="text-2xl font-bold text-green-700">Medium System</div>
+                                        <div class="text-sm text-gray-500 mt-1">~20 panels (6.5 kW)</div>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-xl border-2 border-green-200">
+                                        <div class="text-sm text-gray-600 mb-1">Battery Storage</div>
+                                        <div class="text-2xl font-bold text-green-700">1 Battery</div>
+                                        <div class="text-sm text-gray-500 mt-1">~13.5 kWh capacity</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-5 rounded-xl border-2 border-blue-200 mb-6">
+                                <h5 class="font-semibold text-blue-900 mb-2">💡 Key Insights:</h5>
+                                <ul class="text-blue-800 space-y-1 text-sm">
+                                    <li>✓ Excellent roof orientation for solar</li>
+                                    <li>✓ Estimated annual savings: $2,400</li>
+                                    <li>✓ Energy independence: 92%</li>
+                                    <li>✓ CO₂ reduction: 4.5 tons/year</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <button class="wizard-prev bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200" data-prev="step-3">
+                                    ← Back
+                                </button>
+                                <button class="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 hover:shadow-lg transition-all duration-200 flex-1">
+                                    📤 Share with an Expert
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page-dashboard" class="page-content hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Your Home Monitor</h2>
+                
+                <div class="mb-6 border-b border-gray-200">
+                    <nav class="flex space-x-1" id="monitor-nav">
+                        <button class="sub-nav-btn active" data-target="monitor-task3">Live Dashboard</button>
+                        <button class="sub-nav-btn" data-target="monitor-task4">Performance Reports</button>
+                        <button class="sub-nav-btn" data-target="monitor-task7">
+                            <span class="flex items-center gap-2">
+                                System Alerts
+                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full live-pulse">1</span>
+                            </span>
+                        </button>
+                    </nav>
+                </div>
+
+                <div id="monitor-task3" class="sub-page active">
+                    <div class="bg-red-100 border-l-4 border-red-600 p-4 rounded-lg mb-6 cursor-pointer hover:bg-red-200 transition-colors" onclick="document.querySelector('[data-target=\'monitor-task7\']').click()">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">⚠️</span>
+                            <div class="flex-1">
+                                <p class="font-bold text-red-900">System Alert: Inverter Offline</p>
+                                <p class="text-sm text-red-700">Click here to view diagnostic information and troubleshooting steps</p>
+                            </div>
+                            <span class="text-red-600 font-bold">→</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover border-l-4 border-green-500">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-700">Production</h3>
+                                    <span class="text-3xl live-pulse">☀️</span>
+                                </div>
+                                <p class="text-5xl font-bold text-green-600">4.1 <span class="text-2xl">kW</span></p>
+                                <div class="text-sm text-gray-500 mt-2">↗ +0.3 kW from last hour</div>
+                                <div class="h-20 mt-4 w-full">
+                                    <svg class="w-full h-full" viewBox="0 0 100 50">
+                                        <rect x="5" y="30" width="10" height="20" fill="#a7f3d0" rx="2"></rect>
+                                        <rect x="20" y="25" width="10" height="25" fill="#a7f3d0" rx="2"></rect>
+                                        <rect x="35" y="10" width="10" height="40" fill="#4ade80" rx="2"></rect>
+                                        <rect x="50" y="15" width="10" height="35" fill="#a7f3d0" rx="2"></rect>
+                                        <rect x="65" y="20" width="10" height="30" fill="#a7f3d0" rx="2"></rect>
+                                        <rect x="80" y="35" width="10" height="15" fill="#a7f3d0" rx="2"></rect>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover border-l-4 border-yellow-500">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-700">Consumption</h3>
+                                    <span class="text-3xl">🏡</span>
+                                </div>
+                                <p class="text-5xl font-bold text-yellow-600">1.2 <span class="text-2xl">kW</span></p>
+                                <div class="text-sm text-gray-500 mt-2">↘ -0.5 kW from last hour</div>
+                                <div class="h-20 mt-4 w-full">
+                                    <svg class="w-full h-full" viewBox="0 0 100 50">
+                                        <rect x="5" y="40" width="10" height="10" fill="#fef9c3" rx="2"></rect>
+                                        <rect x="20" y="35" width="10" height="15" fill="#fef9c3" rx="2"></rect>
+                                        <rect x="35" y="30" width="10" height="20" fill="#facc15" rx="2"></rect>
+                                        <rect x="50" y="32" width="10" height="18" fill="#fef9c3" rx="2"></rect>
+                                        <rect x="65" y="38" width="10" height="12" fill="#fef9c3" rx="2"></rect>
+                                        <rect x="80" y="40" width="10" height="10" fill="#fef9c3" rx="2"></rect>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-lg h-full card-hover">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">⚡ Live Energy Flow</h3>
+                            <svg class="w-full h-64 md:h-full" viewBox="0 0 300 200">
+                                <circle cx="30" cy="30" r="25" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                                <text x="30" y="35" font-size="24" text-anchor="middle">☀️</text>
+                                <text x="30" y="65" font-size="11" text-anchor="middle" font-weight="600">4.1 kW</text>
+                                
+                                <circle cx="150" cy="110" r="25" fill="#fef9c3" stroke="#facc15" stroke-width="2"/>
+                                <text x="150" y="115" font-size="24" text-anchor="middle">🏡</text>
+                                <text x="150" y="145" font-size="11" text-anchor="middle" font-weight="600">1.2 kW</text>
+                                
+                                <circle cx="270" cy="30" r="25" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+                                <text x="270" y="35" font-size="24" text-anchor="middle">🔋</text>
+                                <text x="270" y="65" font-size="11" text-anchor="middle" font-weight="600">+2.9 kW</text>
+                                
+                                <defs>
+                                    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#4ade80" />
+                                    </marker>
+                                    <marker id="arrowyellow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#facc15" />
+                                    </marker>
+                                </defs>
+                                <path d="M 55 40 L 125 100" stroke="#4ade80" stroke-width="4" fill="none" class="energy-flow-line" marker-end="url(#arrowgreen)"></path>
+                                <path d="M 55 30 L 245 30" stroke="#4ade80" stroke-width="4" fill="none" class="energy-flow-line" marker-end="url(#arrowgreen)"></path>
+                            </svg>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-xl shadow-lg text-center card-hover">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-4">🔋 Battery Status</h3>
+                                <div class="relative w-28 h-48 border-4 border-gray-800 rounded-xl mx-auto p-1 bg-gray-100">
+                                    <div class="absolute bottom-1 left-1 right-1 h-3/4 bg-gradient-to-t from-green-600 to-green-400 rounded-lg transition-all duration-500"></div>
+                                    <span class="absolute inset-0 flex items-center justify-center text-4xl font-bold text-white drop-shadow-lg">75%</span>
+                                </div>
+                                <div class="mt-4 text-sm text-gray-600">
+                                    <div>Charging at <span class="font-semibold text-green-600">2.9 kW</span></div>
+                                    <div class="mt-1">Full in ~45 min</div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-green-100 to-emerald-100 p-6 rounded-xl shadow-lg border-2 border-green-300 card-hover">
+                                <h3 class="text-lg font-semibold text-green-900 mb-3 flex items-center">
+                                    <span class="text-2xl mr-2">💡</span> Smart Tip
+                                </h3>
+                                <p class="text-green-800 font-medium">Peak Sun! ☀️ Perfect time to run the dishwasher or charge your EV.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="monitor-task4" class="sub-page hidden">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                        <h3 class="text-2xl font-bold text-gray-800">Your Performance Reports</h3>
+                        <div class="flex space-x-2">
+                            <select class="p-3 border-2 border-gray-300 rounded-xl bg-white font-medium hover:border-green-500 transition-colors">
+                                <option>📅 Last 30 Days</option>
+                                <option>📅 Last 3 Months</option>
+                                <option>📅 Last Year</option>
+                            </select>
+                            <button class="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-700 hover:shadow-lg transition-all duration-200">
+                                📥 Download PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">⚡ Energy Independence</h4>
+                            <div class="h-64 bg-gradient-to-br from-gray-50 to-green-50 rounded-xl p-4">
+                                <svg class="w-full h-full" viewBox="0 0 200 100">
+                                    <path d="M 10 90 L 190 90" stroke="#d1d5db" stroke-width="1.5"/>
+                                    <path d="M 10 10 L 10 90" stroke="#d1d5db" stroke-width="1.5"/>
+                                    <path d="M 10 70 L 190 70" stroke="#e5e7eb" stroke-width="0.5" stroke-dasharray="2 2"/>
+                                    <path d="M 10 50 L 190 50" stroke="#e5e7eb" stroke-width="0.5" stroke-dasharray="2 2"/>
+                                    <path d="M 10 30 L 190 30" stroke="#e5e7eb" stroke-width="0.5" stroke-dasharray="2 2"/>
+                                    <path d="M 10 25 L 190 25" stroke="#f87171" stroke-width="2" stroke-dasharray="4 2"/>
+                                    <text x="180" y="22" font-size="8" fill="#ef4444" font-weight="600">Goal: 90%</text>
+                                    <path d="M 10 80 L 40 60 L 70 50 L 100 40 L 130 30 L 160 20 L 190 15" stroke="#16a34a" stroke-width="3" fill="none"/>
+                                    <path d="M 10 80 L 40 60 L 70 50 L 100 40 L 130 30 L 160 20 L 190 15 L 190 90 L 10 90 Z" fill="#16a34a" fill-opacity="0.1"/>
+                                    <circle cx="10" cy="80" r="3" fill="#16a34a"/>
+                                    <circle cx="40" cy="60" r="3" fill="#16a34a"/>
+                                    <circle cx="70" cy="50" r="3" fill="#16a34a"/>
+                                    <circle cx="100" cy="40" r="3" fill="#16a34a"/>
+                                    <circle cx="130" cy="30" r="3" fill="#16a34a"/>
+                                    <circle cx="160" cy="20" r="3" fill="#16a34a"/>
+                                    <circle cx="190" cy="15" r="4" fill="#16a34a" stroke="white" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <p class="mt-4 text-gray-700">
+                                You were <span class="text-2xl font-bold text-green-600">92%</span> energy independent last month, 
+                                <span class="font-semibold text-green-600">beating your goal</span> of 90%! 🎉
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4">💰 Financial Savings</h4>
+                            <div class="h-64 bg-gradient-to-br from-gray-50 to-green-50 rounded-xl p-4">
+                                <svg class="w-full h-full" viewBox="0 0 200 100">
+                                    <path d="M 10 90 L 190 90" stroke="#d1d5db" stroke-width="1.5"/>
+                                    <path d="M 10 10 L 10 90" stroke="#d1d5db" stroke-width="1.5"/>
+                                    <defs>
+                                        <linearGradient id="barGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="20" y="50" width="20" height="40" fill="url(#barGradient)" rx="2"></rect>
+                                    <rect x="50" y="30" width="20" height="60" fill="url(#barGradient)" rx="2"></rect>
+                                    <rect x="80" y="40" width="20" height="50" fill="url(#barGradient)" rx="2"></rect>
+                                    <rect x="110" y="20" width="20" height="70" fill="url(#barGradient)" rx="2"></rect>
+                                    <rect x="140" y="35" width="20" height="55" fill="url(#barGradient)" rx="2"></rect>
+                                    <rect x="170" y="25" width="20" height="65" fill="url(#barGradient)" rx="2"></rect>
+                                    <text x="30" y="97" font-size="6" text-anchor="middle" fill="#6b7280">M1</text>
+                                    <text x="60" y="97" font-size="6" text-anchor="middle" fill="#6b7280">M2</text>
+                                    <text x="90" y="97" font-size="6" text-anchor="middle" fill="#6b7280">M3</text>
+                                    <text x="120" y="97" font-size="6" text-anchor="middle" fill="#6b7280">M4</text>
+                                    <text x="150" y="97" font-size="6" text-anchor="middle" fill="#6b7280">M5</text>
+                                    <text x="180" y="97" font-size="6" text-anchor="middle" fill="#6b7280">M6</text>
+                                </svg>
+                            </div>
+                            <p class="mt-4 text-gray-700">
+                                You saved an estimated <span class="text-2xl font-bold text-green-600">$180</span> last month.
+                                <span class="block mt-2 text-sm text-gray-600">Total savings this year: <span class="font-semibold text-green-600">$980</span></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="monitor-task7" class="sub-page hidden">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-gradient-to-r from-red-600 to-red-700 text-white p-6 rounded-2xl shadow-2xl mb-6 animate-pulse">
+                            <div class="flex items-start gap-4">
+                                <div class="text-5xl">⚠️</div>
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-bold mb-2">CRITICAL ALERT: System Fault Detected</h3>
+                                    <p class="text-lg opacity-90">Inverter Offline - Immediate attention required</p>
+                                    <div class="mt-3 text-sm opacity-75">Detected: Today at 2:34 PM</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-lg mb-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <span>📋</span> What's Happening
+                            </h4>
+                            <div class="bg-red-50 border-l-4 border-red-500 p-5 rounded-lg mb-4">
+                                <h5 class="font-bold text-red-900 mb-2">Problem:</h5>
+                                <p class="text-red-800 text-lg">Your solar inverter has stopped responding.</p>
+                            </div>
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-lg">
+                                <h5 class="font-bold text-yellow-900 mb-2">Impact:</h5>
+                                <p class="text-yellow-800 text-lg">
+                                    ⚡ Your home is currently drawing power from the grid.<br>
+                                    ☀️ Solar production is paused.<br>
+                                    🔋 Battery is not charging.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-lg mb-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <span>🔧</span> Try These Steps First
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="troubleshooting-step p-4 border-2 border-gray-200 rounded-xl cursor-pointer">
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                                        <div class="flex-1">
+                                            <h5 class="font-bold text-gray-800 mb-1">Check the circuit breaker</h5>
+                                            <p class="text-gray-600 text-sm">Look for the breaker labeled "Solar System" in your electrical panel. Make sure it's in the ON position.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="troubleshooting-step p-4 border-2 border-gray-200 rounded-xl cursor-pointer">
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                                        <div class="flex-1">
+                                            <h5 class="font-bold text-gray-800 mb-1">Check the inverter display</h5>
+                                            <p class="text-gray-600 text-sm">Look at the screen or LED lights on your inverter (usually in the garage or utility room). Are there any error codes or red lights?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="troubleshooting-step p-4 border-2 border-gray-200 rounded-xl cursor-pointer">
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                                        <div class="flex-1">
+                                            <h5 class="font-bold text-gray-800 mb-1">Restart the inverter</h5>
+                                            <p class="text-gray-600 text-sm">Turn off the DC disconnect switch near your inverter, wait 30 seconds, then turn it back on. Wait 5 minutes for the system to restart.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 p-4 bg-gray-50 rounded-xl">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" id="tried-steps" class="w-5 h-5">
+                                    <span class="text-gray-700 font-medium">I've tried these steps and the problem persists</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-lg mb-6">
+                            <h4 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <span>👨‍🔧</span> Need Expert Help?
+                            </h4>
+                            <p class="text-gray-600 mb-4">Our team is ready to assist you. We'll automatically send your system diagnostics to your assigned consultant.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <button id="contact-expert-btn" class="bg-green-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-green-700 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+                                    <span>📞</span> Contact Expert Now
+                                </button>
+                                <button class="bg-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200">
+                                    Mark as False Alarm
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="support-status" class="bg-white p-6 rounded-2xl shadow-lg hidden">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4">✅</div>
+                                <h4 class="text-2xl font-bold text-gray-800 mb-3">Alert Sent Successfully!</h4>
+                                <p class="text-gray-600 mb-4">Your consultant has been notified and will review your system data shortly.</p>
+                                
+                                <div class="bg-gray-50 p-5 rounded-xl mb-4">
+                                    <div class="flex items-center justify-center gap-3 mb-3">
+                                        <span class="text-lg font-semibold text-gray-700">Status:</span>
+                                        <span class="status-badge status-pending">
+                                            <span class="inline-block w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></span>
+                                            Awaiting Expert Review
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Expected response: Within 2 hours</p>
+                                    <p class="text-sm text-gray-600 mt-1">Ticket #: <span class="font-mono font-semibold">INV-2025-1147</span></p>
+                                </div>
+
+                                <div class="bg-blue-50 p-4 rounded-xl text-left">
+                                    <h5 class="font-semibold text-blue-900 mb-2">What happens next?</h5>
+                                    <ul class="text-blue-800 space-y-1 text-sm">
+                                        <li>✓ Your consultant will review the system logs</li>
+                                        <li>✓ They may contact you for additional information</li>
+                                        <li>✓ You'll receive updates via SMS and app notification</li>
+                                        <li>✓ If needed, they'll schedule a technician visit</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="page-consultant" class="page-content hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800">Consultant Dashboard</h2>
+                    <span class="text-lg font-medium">Welcome, Sarah!</span>
+                </div>
+
+                <div class="mb-6 border-b border-gray-200">
+                    <nav class="flex space-x-1" id="consultant-nav">
+                        <button class="sub-nav-btn active" data-target="consultant-task5">Validate Designs</button>
+                        <button class="sub-nav-btn" data-target="consultant-task6">Platform Analytics</button>
+                    </nav>
+                </div>
+
+                <div id="consultant-task5" class="sub-page active">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-1 bg-white p-6 rounded-xl shadow">
+                            <h3 class="text-xl font-semibold mb-4">Client Projects</h3>
+                            <ul class="space-y-2">
+                                <li>
+                                    <a href="#" class="block p-3 rounded-lg bg-green-100 border border-green-300">
+                                        <h4 class="font-bold">Miller Family</h4>
+                                        <span class="text-sm text-yellow-700">Status: Needs Review</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block p-3 rounded-lg bg-gray-100 hover:bg-gray-200">
+                                        <h4 class="font-bold">Chen Family</h4>
+                                        <span class="text-sm text-green-700">Status: Approved</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block p-3 rounded-lg bg-gray-100 hover:bg-gray-200">
+                                        <h4 class="font-bold">Patel Project</h4>
+                                        <span class="text-sm text-green-700">Status: Approved</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <h3 class="text-xl font-semibold mt-6 mb-4">System Health Alerts</h3>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-red-100 border border-red-300 rounded-lg">
+                                    <p class="font-medium text-red-800">Chen: Inverter Offline</p>
+                                    <p class="text-sm text-red-700">No data received for 2 hours.</p>
+                                </div>
+                                <div class="p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
+                                    <p class="font-medium text-yellow-800">Patel: Low Production</p>
+                                    <p class="text-sm text-yellow-700">Prod. 30% below forecast.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:col-span-2 bg-white p-6 rounded-xl shadow">
+                            <h3 class="text-xl font-semibold mb-4">Review: Miller Family Project</h3>
+                            <div class="mb-6">
+                                <h4 class="text-lg font-medium text-gray-800">Homeowner Selections:</h4>
+                                <ul class="list-disc list-inside text-gray-600">
+                                    <li>4 People, Medium House</li>
+                                    <li>Appliances: A/C, Washer/Dryer, Pool, EV</li>
+                                    <li>Goal: Zero Energy</li>
+                                    <li>Roof: Gable, 10° Rotation</li>
+                                </ul>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="text-lg font-medium text-gray-800">Technical View & Validation</h4>
+                                <p class="text-sm text-gray-500 mb-2">Homeowner does not see these details.</p>
+                                <table class="w-full text-left border-collapse">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="p-2 border">Parameter</th>
+                                            <th class="p-2 border">Value</th>
+                                            <th class="p-2 border">Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="p-2 border">Roof Tilt</td>
+                                            <td class="p-2 border">35°</td>
+                                            <td class="p-2 border"><input type="text" class="w-full p-1 border rounded" placeholder="Good orientation..."></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2 border">Insulation R-Value</td>
+                                            <td class="p-2 border">R-30</td>
+                                            <td class="p-2 border"><input type="text" class="w-full p-1 border rounded" placeholder="Recommend R-40..."></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-gray-800">Comments for Homeowner</h4>
+                                <textarea class="w-full p-2 border rounded-lg mt-2" rows="3" placeholder="Looks great! Just one suggestion: let's consider upgrading the insulation to R-40..."></textarea>
+                                <div class="mt-4 text-right">
+                                    <button class="bg-gray-300 text-gray-800 px-6 py-2 rounded-lg font-medium mr-2 hover:bg-gray-400">Request Revision</button>
+                                    <button class="bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700">Approve Plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="consultant-task6" class="sub-page hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <h3 class="text-2xl font-semibold mb-0 col-span-1 md:col-span-3">Platform Aggregate Analytics</h3>
+                        
+                        <div class="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Total Homes</h4>
+                                <p class="text-4xl font-bold text-green-600 mt-2">1,420</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Total Est. Prod. (MWh)</h4>
+                                <p class="text-4xl font-bold text-green-600 mt-2">3,120.5</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Avg. Independence</h4>
+                                <p class="text-4xl font-bold text-green-600 mt-2">88%</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow md:col-span-2">
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">Regional Performance</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="h-64 bg-gray-50 rounded p-4">
+                                    <svg class="w-full h-full" viewBox="0 0 200 120">
+                                        <path d="M 30 20 L 50 10 L 90 20 L 100 40 L 80 60 L 70 50 Z" fill="#dcfce7" stroke="#22c55e"/>
+                                        <text x="65" y="40" font-size="8">North</text>
+                                        <path d="M 20 70 L 60 60 L 80 70 L 70 90 L 40 100 Z" fill="#bbf7d0" stroke="#22c55e"/>
+                                        <text x="50" y="80" font-size="8">West</text>
+                                        <path d="M 90 60 L 130 50 L 150 70 L 130 90 L 100 80 Z" fill="#86efac" stroke="#22c55e"/>
+                                        <text x="120" y="75" font-size="8">Central</text>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 mb-2">Performance vs. Forecast:</p>
+                                    <ul class="space-y-2">
+                                        <li class="flex justify-between items-center"><span class="font-medium">Central</span> <span class="text-green-600 font-semibold">+12%</span></li>
+                                        <li class="flex justify-between items-center"><span class="font-medium">West</span> <span class="text-green-600 font-semibold">+4%</span></li>
+                                        <li class="flex justify-between items-center"><span class="font-medium">North</span> <span class="text-red-500 font-semibold">-2%</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow md:col-span-1">
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">System Types Deployed</h4>
+                            <div class="h-40 bg-gray-50 rounded p-4 flex items-center justify-center">
+                                <svg class="w-36 h-36" viewBox="0 0 64 64">
+                                    <circle r="25" cx="32" cy="32" fill="transparent" stroke="#16a34a" stroke-width="20" stroke-dasharray="78.5 157" />
+                                    <circle r="25" cx="32" cy="32" fill="transparent" stroke="#4ade80" stroke-width="20" stroke-dasharray="47.1 157" stroke-dashoffset="-78.5" />
+                                    <circle r="25" cx="32" cy="32" fill="transparent" stroke="#bbf7d0" stroke-width="20" stroke-dasharray="31.4 157" stroke-dashoffset="-125.6" />
+                                </svg>
+                            </div>
+                            <ul class="mt-4 text-center space-y-1">
+                                <li class="text-gray-600"><span class="inline-block w-3 h-3 rounded-full bg-green-600 mr-2"></span>50% - Grid-Tied</li>
+                                <li class="text-gray-600"><span class="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>30% - Hybrid</li>
+                                <li class="text-gray-600"><span class="inline-block w-3 h-3 rounded-full bg-green-200 mr-2"></span>20% - Off-Grid</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow md:col-span-1">
+                             <h4 class="text-lg font-medium text-gray-700 mb-4">Update System Models</h4>
+                            <p class="text-gray-600 mb-4 text-sm">Update core logic, efficiency tables, or standards used by the planner.</p>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                    <span class="text-gray-700 font-medium">Building Codes</span>
+                                    <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm hover:bg-gray-300">Update</button>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                    <span class="text-gray-700 font-medium">Appliance Tables</span>
+                                    <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm hover:bg-gray-300">Update</button>
+                                </div>
+                                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                    <span class="text-gray-700 font-medium">Solar Panel Models</span>
+                                    <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm hover:bg-gray-300">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="alert-banner" class="alert-banner">
+        <div class="flex items-start gap-3">
+            <div class="text-3xl">⚠️</div>
+            <div class="flex-1">
+                <h4 class="font-bold text-lg mb-1">SYSTEM ALERT</h4>
+                <p class="text-sm opacity-90">Inverter Offline - Click to view details</p>
+            </div>
+            <button class="text-white hover:text-gray-200 text-2xl" onclick="document.getElementById('alert-banner').classList.remove('active')">×</button>
+        </div>
+    </div>
+
+    <script>
+        // Main page navigation
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const pages = document.querySelectorAll('.page-content');
+        
+        const pageMap = {
+            'nav-wizard': 'page-wizard',
+            'nav-dashboard': 'page-dashboard',
+            'nav-consultant': 'page-consultant'
+        };
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(b => {
+                    b.classList.remove('bg-green-600', 'text-white');
+                    b.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+                });
+                btn.classList.add('bg-green-600', 'text-white');
+                btn.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+                
+                const targetPage = pageMap[btn.id];
+                pages.forEach(page => {
+                    page.classList.toggle('hidden', page.id !== targetPage);
+                });
+            });
+        });
+
+        // Wizard navigation
+        document.querySelectorAll('.wizard-next').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currentStep = btn.closest('.step');
+                const nextStepId = btn.getAttribute('data-next');
+                currentStep.classList.remove('active');
+                document.getElementById(nextStepId).classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.wizard-prev').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currentStep = btn.closest('.step');
+                const prevStepId = btn.getAttribute('data-prev');
+                currentStep.classList.remove('active');
+                document.getElementById(prevStepId).classList.add('active');
+            });
+        });
+
+        // Sub-navigation handler
+        function handleSubNav(navContainerId) {
+            const nav = document.getElementById(navContainerId);
+            if (!nav) return;
+            const buttons = nav.querySelectorAll('.sub-nav-btn');
+            const pages = nav.closest('.page-content').querySelectorAll('.sub-page');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const targetId = btn.getAttribute('data-target');
+                    pages.forEach(page => {
+                        page.classList.toggle('active', page.id === targetId);
+                        page.classList.toggle('hidden', page.id !== targetId);
+                    });
+                });
+            });
+        }
+        handleSubNav('monitor-nav');
+        handleSubNav('consultant-nav');
+
+        // REFACTORED: Moved variables to global script scope
+        const roofSvgs = document.querySelectorAll('.roof-svg');
+        const roofButtons = document.querySelectorAll('.roof-type-btn');
+        let currentRotation = 0;
+
+        // REMOVED: Circular Rotation Control (Task 1)
+        // All logic for rotationCircle, rotationIndicator, isDragging, and mouse/touch events removed.
+
+        // NEW: Roof Rotation Slider (Replaces circular control)
+        const rotationSlider = document.getElementById('roof-rotation');
+        const rotationLabel = document.getElementById('rotation-label');
+
+        if (rotationSlider) {
+            rotationSlider.addEventListener('input', (e) => {
+                const angle = parseInt(e.target.value, 10);
+                currentRotation = angle; // Update global rotation variable
+
+                // Update label
+                let direction = 'South';
+                if (angle < -35) direction = 'South-East';
+                else if (angle < -10) direction = 'South (SE)';
+                else if (angle > 35) direction = 'South-West';
+                else if (angle > 10) direction = 'South (SW)';
+                
+                const quality = Math.abs(angle) < 15 ? 'Optimal' : 'Acceptable';
+                const color = quality === 'Optimal' ? 'text-green-600' : 'text-yellow-600';
+                rotationLabel.innerHTML = `${angle}° (${direction}) - <span class="font-semibold ${color}">${quality}</span>`;
+
+                // Update roof SVG rotation
+                const activeSvg = document.querySelector('.roof-svg.active-svg');
+                if (activeSvg) {
+                    activeSvg.style.transform = `rotateY(${angle}deg) rotateX(10deg)`;
+                }
+            });
+        }
+        
+        // Roof type selector (no changes, but now uses global currentRotation)
+        roofButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                roofButtons.forEach(b => b.classList.remove('active-roof'));
+                btn.classList.add('active-roof');
+                
+                const targetId = `roof-${btn.getAttribute('data-roof')}`;
+                roofSvgs.forEach(svg => {
+                    const isActive = svg.id === targetId;
+                    svg.classList.toggle('active-svg', isActive);
+                    svg.classList.toggle('hidden', !isActive);
+                    if (isActive) {
+                        svg.style.transform = `rotateY(${currentRotation}deg) rotateX(10deg)`;
+                    }
+                });
+            });
+        });
+
+        // NEW: Stepper Control for People Count (Task 2)
+        let peopleCount = 4;
+        const peopleValue = document.getElementById('people-value');
+        const peopleMinus = document.getElementById('people-minus');
+        const peoplePlus = document.getElementById('people-plus');
+
+        if (peopleMinus && peoplePlus) {
+            peopleMinus.addEventListener('click', () => {
+                if (peopleCount > 1) {
+                    peopleCount--;
+                    peopleValue.textContent = peopleCount;
+                }
+            });
+
+            peoplePlus.addEventListener('click', () => {
+                if (peopleCount < 8) {
+                    peopleCount++;
+                    peopleValue.textContent = peopleCount;
+                }
+            });
+        }
+
+        // NEW: Segmented Control for House Size (Task 2)
+        const sizeButtons = document.querySelectorAll('.segment-option');
+        let selectedSize = 'medium';
+
+        sizeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sizeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedSize = btn.getAttribute('data-size');
+            });
+        });
+
+        // NEW: Enhanced Checkbox Cards (Task 3)
+        document.querySelectorAll('.appliance-check').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const label = e.target.closest('label');
+                if (e.target.checked) {
+                    label.classList.add('border-green-400', 'bg-green-50');
+                    label.classList.remove('border-gray-200');
+                } else {
+                    label.classList.remove('border-green-400', 'bg-green-50');
+                    label.classList.add('border-gray-200');
+                }
+            });
+        });
+        
+        // NEW: Task 7 - System Alert Handling
+        const alertBanner = document.getElementById('alert-banner');
+        const contactExpertBtn = document.getElementById('contact-expert-btn');
+        const supportStatus = document.getElementById('support-status');
+        
+        // Show alert banner after 3 seconds when on monitor page
+        setTimeout(() => {
+            if (!document.getElementById('page-dashboard').classList.contains('hidden')) {
+                alertBanner.classList.add('active');
+            }
+        }, 3000);
+        
+        // Click alert banner to go to alerts page
+        alertBanner.addEventListener('click', () => {
+            // Switch to monitor dashboard if not already there
+            const dashboardBtn = document.getElementById('nav-dashboard');
+            dashboardBtn.click();
+            
+            // Switch to alerts tab
+            setTimeout(() => {
+                const alertsBtn = document.querySelector('[data-target="monitor-task7"]');
+                if (alertsBtn) {
+                    alertsBtn.click();
+                }
+                alertBanner.classList.remove('active');
+            }, 100);
+        });
+        
+        // Handle contact expert button
+        if (contactExpertBtn) {
+            contactExpertBtn.addEventListener('click', () => {
+                // Hide the contact section, show the status section
+                contactExpertBtn.closest('.bg-white').style.display = 'none';
+                document.querySelector('.troubleshooting-step').closest('.bg-white').style.display = 'none';
+                supportStatus.classList.remove('hidden');
+                
+                // Scroll to status
+                supportStatus.scrollIntoView({ behavior: 'smooth' });
+                
+                // Simulate status update after 5 seconds
+                setTimeout(() => {
+                    const statusBadge = supportStatus.querySelector('.status-badge');
+                    statusBadge.classList.remove('status-pending');
+                    statusBadge.classList.add('status-resolved');
+                    statusBadge.innerHTML = '<span class="inline-block w-2 h-2 bg-green-600 rounded-full"></span> Expert Reviewing';
+                }, 5000);
+            });
+        }
+    </script>
+</body>
+</html>
