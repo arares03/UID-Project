@@ -1,0 +1,94 @@
+@keyframes flow {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.5; 
+    }
+}
+
+.energy-flow-line {
+    stroke-dasharray: 10 5;
+    animation: flow 4s linear infinite;
+}
+
+.live-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(500px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0%, 100% { 
+        transform: translateX(0); 
+    }
+    10%, 30%, 50%, 70%, 90% { 
+        transform: translateX(-5px); 
+    }
+    20%, 40%, 60%, 80% { 
+        transform: translateX(5px); 
+    }
+}
+
+.alert-banner {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4);
+    cursor: pointer;
+    z-index: 999;
+    display: none;
+    max-width: 400px;
+    animation: slideInRight 0.5s ease-out, shake 0.5s ease-in-out 0.5s;
+}
+
+.alert-banner.active {
+    display: block;
+}
+
+.troubleshooting-step {
+    transition: all 0.2s ease;
+}
+
+.troubleshooting-step:hover {
+    background: #f9fafb;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-resolved {
+    background: #d1fae5;
+    color: #065f46;
+}

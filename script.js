@@ -1,34 +1,14 @@
-const navButtons = document.querySelectorAll('.nav-btn');
-const pages = document.querySelectorAll('.page-content');
-
-const pageMap = {
-    'nav-wizard': 'page-wizard',
-    'nav-dashboard': 'page-dashboard',
-    'nav-consultant': 'page-consultant'
-};
-
-navButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        navButtons.forEach(b => {
-            b.classList.remove('bg-green-600', 'text-white');
-            b.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
-        });
-        btn.classList.add('bg-green-600', 'text-white');
-        btn.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
-        
-        const targetPage = pageMap[btn.id];
-        pages.forEach(page => {
-            page.classList.toggle('hidden', page.id !== targetPage);
-        });
-    });
-});
-
 document.querySelectorAll('.wizard-next').forEach(btn => {
     btn.addEventListener('click', () => {
         const currentStep = btn.closest('.step');
         const nextStepId = btn.getAttribute('data-next');
-        currentStep.classList.remove('active');
-        document.getElementById(nextStepId).classList.add('active');
+        if (currentStep && nextStepId) {
+            currentStep.classList.remove('active');
+            const nextStep = document.getElementById(nextStepId);
+            if (nextStep) {
+                nextStep.classList.add('active');
+            }
+        }
     });
 });
 
@@ -36,8 +16,13 @@ document.querySelectorAll('.wizard-prev').forEach(btn => {
     btn.addEventListener('click', () => {
         const currentStep = btn.closest('.step');
         const prevStepId = btn.getAttribute('data-prev');
-        currentStep.classList.remove('active');
-        document.getElementById(prevStepId).classList.add('active');
+        if (currentStep && prevStepId) {
+            currentStep.classList.remove('active');
+            const prevStep = document.getElementById(prevStepId);
+            if (prevStep) {
+                prevStep.classList.add('active');
+            }
+        }
     });
 });
 
@@ -45,14 +30,14 @@ function handleSubNav(navContainerId) {
     const nav = document.getElementById(navContainerId);
     if (!nav) return;
     const buttons = nav.querySelectorAll('.sub-nav-btn');
-    const pages = nav.closest('.page-content').querySelectorAll('.sub-page');
+    const subPages = document.querySelectorAll('.sub-page');
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             buttons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             const targetId = btn.getAttribute('data-target');
-            pages.forEach(page => {
+            subPages.forEach(page => {
                 page.classList.toggle('active', page.id === targetId);
                 page.classList.toggle('hidden', page.id !== targetId);
             });
@@ -154,41 +139,44 @@ document.querySelectorAll('.appliance-check').forEach(checkbox => {
 });
 
 const alertBanner = document.getElementById('alert-banner');
-const contactExpertBtn = document.getElementById('contact-expert-btn');
-const supportStatus = document.getElementById('support-status');
 
-setTimeout(() => {
-    if (!document.getElementById('page-dashboard').classList.contains('hidden')) {
-        alertBanner.classList.add('active');
-    }
-}, 3000);
-
-alertBanner.addEventListener('click', () => {
-    const dashboardBtn = document.getElementById('nav-dashboard');
-    dashboardBtn.click();
-    
+if (alertBanner && window.location.pathname.includes('monitor.html')) {
     setTimeout(() => {
+        alertBanner.classList.add('active');
+    }, 3000);
+}
+
+if (alertBanner) {
+    alertBanner.addEventListener('click', () => {
         const alertsBtn = document.querySelector('[data-target="monitor-task7"]');
         if (alertsBtn) {
             alertsBtn.click();
         }
         alertBanner.classList.remove('active');
-    }, 100);
-});
+    });
+}
 
-if (contactExpertBtn) {
+const contactExpertBtn = document.getElementById('contact-expert-btn');
+const supportStatus = document.getElementById('support-status');
+
+if (contactExpertBtn && supportStatus) {
     contactExpertBtn.addEventListener('click', () => {
         contactExpertBtn.closest('.bg-white').style.display = 'none';
-        document.querySelector('.troubleshooting-step').closest('.bg-white').style.display = 'none';
+        const troubleshootingSection = document.querySelector('.troubleshooting-step');
+        if (troubleshootingSection) {
+            troubleshootingSection.closest('.bg-white').style.display = 'none';
+        }
         supportStatus.classList.remove('hidden');
         
         supportStatus.scrollIntoView({ behavior: 'smooth' });
         
         setTimeout(() => {
             const statusBadge = supportStatus.querySelector('.status-badge');
-            statusBadge.classList.remove('status-pending');
-            statusBadge.classList.add('status-resolved');
-            statusBadge.innerHTML = '<span class="inline-block w-2 h-2 bg-green-600 rounded-full"></span> Expert Reviewing';
+            if (statusBadge) {
+                statusBadge.classList.remove('status-pending');
+                statusBadge.classList.add('status-resolved');
+                statusBadge.innerHTML = '<span class="inline-block w-2 h-2 bg-green-600 rounded-full"></span> Expert Reviewing';
+            }
         }, 5000);
     });
 }

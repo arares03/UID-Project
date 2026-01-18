@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarHome - Consultant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="common.css" rel="stylesheet">
+    <link href="consultant.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <header class="bg-white border-b border-gray-200">
+            <div class="p-4 md:p-6 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-green-600">SolarHome</h1>
+                <nav class="flex space-x-2 md:space-x-4">
+                    <a href="index.html" class="nav-btn px-3 py-2 rounded-lg text-sm md:text-base font-medium text-gray-600 bg-gray-100 hover:bg-gray-200">Home</a>
+                    <a href="planner.html" class="nav-btn px-3 py-2 rounded-lg text-sm md:text-base font-medium text-gray-600 bg-gray-100 hover:bg-gray-200">Planner</a>
+                    <a href="monitor.html" class="nav-btn px-3 py-2 rounded-lg text-sm md:text-base font-medium text-gray-600 bg-gray-100 hover:bg-gray-200">Monitor</a>
+                    <a href="consultant.html" class="nav-btn px-3 py-2 rounded-lg text-sm md:text-base font-medium text-white bg-green-600">Consultant</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="p-4 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">Consultant Dashboard</h2>
+                <span class="text-lg font-medium">Welcome, Sarah!</span>
+            </div>
+
+            <div class="mb-6 border-b border-gray-200">
+                <nav class="flex space-x-1" id="consultant-nav">
+                    <button class="sub-nav-btn active" data-target="consultant-task5">Validate Designs</button>
+                    <button class="sub-nav-btn" data-target="consultant-task6">Platform Analytics</button>
+                </nav>
+            </div>
+
+            <div id="consultant-task5" class="sub-page active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-1 bg-white p-6 rounded-xl shadow">
+                        <h3 class="text-xl font-semibold mb-4">Client Projects</h3>
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="#" class="block p-3 rounded-lg bg-green-100 border border-green-300">
+                                    <h4 class="font-bold">Miller Family</h4>
+                                    <span class="text-sm text-yellow-700">Status: Needs Review</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block p-3 rounded-lg bg-gray-100 hover:bg-gray-200">
+                                    <h4 class="font-bold">Chen Family</h4>
+                                    <span class="text-sm text-green-700">Status: Approved</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="block p-3 rounded-lg bg-gray-100 hover:bg-gray-200">
+                                    <h4 class="font-bold">Patel Project</h4>
+                                    <span class="text-sm text-green-700">Status: Approved</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold mt-6 mb-4">System Health Alerts</h3>
+                        <div class="space-y-2">
+                            <div class="p-3 bg-red-100 border border-red-300 rounded-lg">
+                                <p class="font-medium text-red-800">Chen: Inverter Offline</p>
+                                <p class="text-sm text-red-700">No data received for 2 hours.</p>
+                            </div>
+                            <div class="p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
+                                <p class="font-medium text-yellow-800">Patel: Low Production</p>
+                                <p class="text-sm text-yellow-700">Prod. 30% below forecast.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2 bg-white p-6 rounded-xl shadow">
+                        <h3 class="text-xl font-semibold mb-4">Review: Miller Family Project</h3>
+                        <div class="mb-6">
+                            <h4 class="text-lg font-medium text-gray-800">Homeowner Selections:</h4>
+                            <ul class="list-disc list-inside text-gray-600">
+                                <li>4 People, Medium House</li>
+                                <li>Appliances: A/C, Washer/Dryer, Pool, EV</li>
+                                <li>Goal: Zero Energy</li>
+                                <li>Roof: Gable, 10° Rotation</li>
+                            </ul>
+                        </div>
+                        <div class="mb-6">
+                            <h4 class="text-lg font-medium text-gray-800">Technical View & Validation</h4>
+                            <p class="text-sm text-gray-500 mb-2">Homeowner does not see these details.</p>
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="p-2 border">Parameter</th>
+                                        <th class="p-2 border">Value</th>
+                                        <th class="p-2 border">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-2 border">Roof Tilt</td>
+                                        <td class="p-2 border">35°</td>
+                                        <td class="p-2 border"><input type="text" class="w-full p-1 border rounded" placeholder="Good orientation..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border">Insulation R-Value</td>
+                                        <td class="p-2 border">R-30</td>
+                                        <td class="p-2 border"><input type="text" class="w-full p-1 border rounded" placeholder="Recommend R-40..."></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-800">Comments for Homeowner</h4>
+                            <textarea class="w-full p-2 border rounded-lg mt-2" rows="3" placeholder="Looks great! Just one suggestion: let's consider upgrading the insulation to R-40..."></textarea>
+                            <div class="mt-4 text-right">
+                                <button class="bg-gray-300 text-gray-800 px-6 py-2 rounded-lg font-medium mr-2 hover:bg-gray-400">Request Revision</button>
+                                <button class="bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700">Approve Plan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="consultant-task6" class="sub-page hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <h3 class="text-2xl font-semibold mb-0 col-span-1 md:col-span-3">Platform Aggregate Analytics</h3>
+                    
+                    <div class="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow">
+                            <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Total Homes</h4>
+                            <p class="text-4xl font-bold text-green-600 mt-2">1,420</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow">
+                            <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Total Est. Prod. (MWh)</h4>
+                            <p class="text-4xl font-bold text-green-600 mt-2">3,120.5</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow">
+                            <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Avg. Independence</h4>
+                            <p class="text-4xl font-bold text-green-600 mt-2">88%</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow md:col-span-2">
+                        <h4 class="text-lg font-medium text-gray-700 mb-4">Regional Performance</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="h-64 bg-gray-50 rounded p-4">
+                                <svg class="w-full h-full" viewBox="0 0 200 120">
+                                    <path d="M 30 20 L 50 10 L 90 20 L 100 40 L 80 60 L 70 50 Z" fill="#dcfce7" stroke="#22c55e"/>
+                                    <text x="65" y="40" font-size="8">North</text>
+                                    <path d="M 20 70 L 60 60 L 80 70 L 70 90 L 40 100 Z" fill="#bbf7d0" stroke="#22c55e"/>
+                                    <text x="50" y="80" font-size="8">West</text>
+                                    <path d="M 90 60 L 130 50 L 150 70 L 130 90 L 100 80 Z" fill="#86efac" stroke="#22c55e"/>
+                                    <text x="120" y="75" font-size="8">Central</text>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 mb-2">Performance vs. Forecast:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex justify-between items-center"><span class="font-medium">Central</span> <span class="text-green-600 font-semibold">+12%</span></li>
+                                    <li class="flex justify-between items-center"><span class="font-medium">West</span> <span class="text-green-600 font-semibold">+4%</span></li>
+                                    <li class="flex justify-between items-center"><span class="font-medium">North</span> <span class="text-red-500 font-semibold">-2%</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow md:col-span-1">
+                        <h4 class="text-lg font-medium text-gray-700 mb-4">System Types Deployed</h4>
+                        <div class="h-40 bg-gray-50 rounded p-4 flex items-center justify-center">
+                            <svg class="w-36 h-36" viewBox="0 0 64 64">
+                                <circle r="25" cx="32" cy="32" fill="transparent" stroke="#16a34a" stroke-width="20" stroke-dasharray="78.5 157" />
+                                <circle r="25" cx="32" cy="32" fill="transparent" stroke="#4ade80" stroke-width="20" stroke-dasharray="47.1 157" stroke-dashoffset="-78.5" />
+                                <circle r="25" cx="32" cy="32" fill="transparent" stroke="#bbf7d0" stroke-width="20" stroke-dasharray="31.4 157" stroke-dashoffset="-125.6" />
+                            </svg>
+                        </div>
+                        <ul class="mt-4 text-center space-y-1">
+                            <li class="text-gray-600"><span class="inline-block w-3 h-3 rounded-full bg-green-600 mr-2"></span>50% - Grid-Tied</li>
+                            <li class="text-gray-600"><span class="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>30% - Hybrid</li>
+                            <li class="text-gray-600"><span class="inline-block w-3 h-3 rounded-full bg-green-200 mr-2"></span>20% - Off-Grid</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow md:col-span-1">
+                         <h4 class="text-lg font-medium text-gray-700 mb-4">Update System Models</h4>
+                        <p class="text-gray-600 mb-4 text-sm">Update core logic, efficiency tables, or standards used by the planner.</p>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-gray-700 font-medium">Building Codes</span>
+                                <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm hover:bg-gray-300">Update</button>
+                            </div>
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-gray-700 font-medium">Appliance Tables</span>
+                                <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm hover:bg-gray-300">Update</button>
+                            </div>
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-gray-700 font-medium">Solar Panel Models</span>
+                                <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm hover:bg-gray-300">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
