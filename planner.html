@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="common.css" rel="stylesheet">
     <link href="planner.css" rel="stylesheet">
+    <script src="planner-data.js"></script>
 </head>
 <body class="bg-gray-100 p-4 md:p-8">
 
@@ -131,51 +132,34 @@
                         <h3 class="text-2xl font-bold mb-2 text-gray-800">Step 3: What will you be powering?</h3>
                         <p class="text-gray-600 mb-6">Select your major appliances. This helps create your energy plan.</p>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <label class="flex items-center p-5 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all duration-200 card-hover">
-                                <input type="checkbox" class="appliance-check">
-                                <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2"></path>
-                                </svg>
-                                <div class="ml-3 flex-1">
-                                    <span class="text-lg font-semibold text-gray-800">A/C Unit</span>
-                                    <p class="text-sm text-gray-500">~3.5 kW</p>
-                                </div>
-                            </label>
+                        <div id="appliances-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             
-                            <label class="flex items-center p-5 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all duration-200 card-hover">
-                                <input type="checkbox" class="appliance-check">
-                                <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10H4.228c-.464 0-.909.184-1.239.514l-2.43 2.43a1 1 0 000 1.414l2.43 2.43c.33.33.775.514 1.239.514H14M14 10l7-7m0 0l-7 7m7-7v14m0-14H18"></path>
-                                </svg>
-                                <div class="ml-3 flex-1">
-                                    <span class="text-lg font-semibold text-gray-800">Washer/Dryer</span>
-                                    <p class="text-sm text-gray-500">~2 kW</p>
-                                </div>
-                            </label>
-                            
-                            <label class="flex items-center p-5 border-2 border-green-400 bg-green-50 rounded-xl cursor-pointer hover:border-green-500 transition-all duration-200 card-hover">
-                                <input type="checkbox" class="appliance-check" checked>
-                                <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                                </svg>
-                                <div class="ml-3 flex-1">
-                                    <span class="text-lg font-semibold text-gray-800">Pool Pump</span>
-                                    <p class="text-sm text-gray-500">~1.5 kW</p>
-                                </div>
-                            </label>
-                            
-                            <label class="flex items-center p-5 border-2 border-green-400 bg-green-50 rounded-xl cursor-pointer hover:border-green-500 transition-all duration-200 card-hover">
-                                <input type="checkbox" class="appliance-check" checked>
-                                <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
-                                </svg>
-                                <div class="ml-3 flex-1">
-                                    <span class="text-lg font-semibold text-gray-800">Electric Car</span>
-                                    <p class="text-sm text-gray-500">~7 kW charging</p>
-                                </div>
-                            </label>
                         </div>
+                        
+                        <script>
+
+                            const appliancesGrid = document.getElementById('appliances-grid');
+                            if (appliancesGrid && typeof PlannerData !== 'undefined') {
+                                PlannerData.appliances.forEach(appliance => {
+                                    const isChecked = appliance.defaultSelected;
+                                    const borderClass = isChecked ? 'border-green-400 bg-green-50' : 'border-gray-200';
+                                    
+                                    const label = document.createElement('label');
+                                    label.className = `flex items-center p-5 border-2 ${borderClass} rounded-xl cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all duration-200 card-hover`;
+                                    label.innerHTML = `
+                                        <input type="checkbox" class="appliance-check" data-appliance="${appliance.id}" ${isChecked ? 'checked' : ''}>
+                                        <svg class="w-8 h-8 ml-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${appliance.icon}"></path>
+                                        </svg>
+                                        <div class="ml-3 flex-1">
+                                            <span class="text-lg font-semibold text-gray-800">${appliance.name}</span>
+                                            <p class="text-sm text-gray-500">~${appliance.power} kW · ${appliance.monthlyUsage} kWh/mo</p>
+                                        </div>
+                                    `;
+                                    appliancesGrid.appendChild(label);
+                                });
+                            }
+                        </script>
                         
                         <div class="flex gap-3 mt-10">
                             <button class="wizard-prev bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200" data-prev="step-2">
@@ -193,35 +177,49 @@
                         
                         <div class="text-center p-8 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow-lg mb-6 card-hover">
                             <span class="text-lg text-gray-600 font-medium">Your Solar Score</span>
-                            <h4 class="text-8xl font-bold text-green-600 my-4 animate-pulse">A+</h4>
+                            <h4 id="solar-grade" class="text-8xl font-bold text-green-600 my-4 animate-pulse">A+</h4>
                             <div class="text-2xl text-gray-800 mb-2">Your roof can power</div>
-                            <div class="text-6xl font-bold text-green-600 my-3">110%</div>
-                            <div class="text-2xl text-gray-800">of your home! ⚡</div>
+                            <div id="coverage-percentage" class="text-6xl font-bold text-green-600 my-3">110</div>
+                            <div class="text-2xl text-gray-800">% of your home! ⚡</div>
                         </div>
                         
                         <div class="bg-white p-6 rounded-2xl shadow-lg mb-6">
                             <h4 class="text-xl font-bold text-gray-800 mb-4">📊 Recommended System:</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <div class="bg-green-50 p-4 rounded-xl border-2 border-green-200">
                                     <div class="text-sm text-gray-600 mb-1">Solar Panels</div>
-                                    <div class="text-2xl font-bold text-green-700">Medium System</div>
-                                    <div class="text-sm text-gray-500 mt-1">~20 panels (6.5 kW)</div>
+                                    <div class="text-2xl font-bold text-green-700"><span id="panel-count">20</span> Panels</div>
+                                    <div class="text-sm text-gray-500 mt-1"><span id="system-size">6.5</span> kW System</div>
                                 </div>
                                 <div class="bg-green-50 p-4 rounded-xl border-2 border-green-200">
                                     <div class="text-sm text-gray-600 mb-1">Battery Storage</div>
-                                    <div class="text-2xl font-bold text-green-700">1 Battery</div>
-                                    <div class="text-sm text-gray-500 mt-1">~13.5 kWh capacity</div>
+                                    <div class="text-2xl font-bold text-green-700"><span id="battery-count">1</span> Battery</div>
+                                    <div class="text-sm text-gray-500 mt-1"><span id="battery-capacity">13.5</span> kWh capacity</div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-200">
+                                    <div class="text-sm text-gray-600 mb-1">Energy Consumption</div>
+                                    <div class="text-xl font-bold text-blue-700"><span id="monthly-consumption">1200</span> kWh/mo</div>
+                                    <div class="text-xs text-gray-500 mt-1">Your household usage</div>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-xl border-2 border-purple-200">
+                                    <div class="text-sm text-gray-600 mb-1">Solar Production</div>
+                                    <div class="text-xl font-bold text-purple-700"><span id="monthly-production">1320</span> kWh/mo</div>
+                                    <div class="text-xs text-gray-500 mt-1">Expected generation</div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="bg-blue-50 p-5 rounded-xl border-2 border-blue-200 mb-6">
-                            <h5 class="font-semibold text-blue-900 mb-2">💡 Key Insights:</h5>
-                            <ul class="text-blue-800 space-y-1 text-sm">
-                                <li>✓ Excellent roof orientation for solar</li>
-                                <li>✓ Estimated annual savings: $2,400</li>
-                                <li>✓ Energy independence: 92%</li>
-                                <li>✓ CO₂ reduction: 4.5 tons/year</li>
+                            <h5 class="font-semibold text-blue-900 mb-3">💡 Key Insights:</h5>
+                            <ul class="text-blue-800 space-y-2 text-sm">
+                                <li id="roof-quality">✓ Excellent roof orientation for solar</li>
+                                <li>💰 Estimated annual savings: <strong>$<span id="annual-savings">2,400</span></strong></li>
+                                <li>⚡ Energy independence: <strong><span id="energy-independence">92</span>%</strong></li>
+                                <li>🌱 CO₂ reduction: <strong><span id="co2-reduction">4.5</span> tons/year</strong></li>
+                                <li>💵 Installation cost: <strong>~$<span id="install-cost">16,250</span></strong></li>
+                                <li>📈 Payback period: <strong><span id="payback-years">6.8</span> years</strong></li>
                             </ul>
                         </div>
                         
@@ -239,6 +237,7 @@
         </main>
     </div>
 
+    <script src="planner-app.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

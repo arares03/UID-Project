@@ -186,3 +186,88 @@ input[type=range]:focus::-webkit-slider-runnable-track {
     min-width: 80px;
     text-align: center;
 }
+
+
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+
+#appliances-grid label {
+    position: relative;
+    overflow: hidden;
+}
+
+#appliances-grid label::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 0 0;
+    border-color: transparent transparent transparent transparent;
+    transition: all 0.3s ease;
+}
+
+#appliances-grid label:has(input:checked)::after {
+    border-width: 0 40px 40px 0;
+    border-color: transparent #16a34a transparent transparent;
+}
+
+#appliances-grid label:has(input:checked)::before {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: 1;
+}
+
+
+@keyframes pulseGlow {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(22, 163, 74, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 40px rgba(22, 163, 74, 0.8);
+    }
+}
+
+#solar-grade {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+
+[id^="solar-"],
+[id^="coverage-"],
+[id^="system-"],
+[id^="panel-"],
+[id^="battery-"],
+[id^="annual-"],
+[id^="energy-"],
+[id^="co2-"],
+[id^="install-"],
+[id^="payback-"],
+[id^="monthly-"] {
+    transition: all 0.5s ease;
+}
+
+
+@media (max-width: 768px) {
+    #appliances-grid {
+        gap: 12px;
+    }
+    
+    .stepper-value {
+        font-size: 2.5rem;
+    }
+}

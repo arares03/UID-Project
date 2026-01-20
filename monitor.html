@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="common.css" rel="stylesheet">
     <link href="monitor.css" rel="stylesheet">
+    <script src="monitor-data.js"></script>
 </head>
 <body class="bg-gray-100 p-4 md:p-8">
 
@@ -59,8 +60,8 @@
                                 <h3 class="text-lg font-semibold text-gray-700">Production</h3>
                                 <span class="text-3xl live-pulse">☀️</span>
                             </div>
-                            <p class="text-5xl font-bold text-green-600">4.1 <span class="text-2xl">kW</span></p>
-                            <div class="text-sm text-gray-500 mt-2">↗ +0.3 kW from last hour</div>
+                            <p class="text-5xl font-bold text-green-600"><span class="production-value">4.1</span> <span class="text-2xl">kW</span></p>
+                            <div class="text-sm text-gray-500 mt-2 production-trend">↗ +0.3 kW from last hour</div>
                             <div class="h-20 mt-4 w-full">
                                 <svg class="w-full h-full" viewBox="0 0 100 50">
                                     <rect x="5" y="30" width="10" height="20" fill="#a7f3d0" rx="2"></rect>
@@ -78,8 +79,8 @@
                                 <h3 class="text-lg font-semibold text-gray-700">Consumption</h3>
                                 <span class="text-3xl">🏡</span>
                             </div>
-                            <p class="text-5xl font-bold text-yellow-600">1.2 <span class="text-2xl">kW</span></p>
-                            <div class="text-sm text-gray-500 mt-2">↘ -0.5 kW from last hour</div>
+                            <p class="text-5xl font-bold text-yellow-600"><span class="consumption-value">1.2</span> <span class="text-2xl">kW</span></p>
+                            <div class="text-sm text-gray-500 mt-2 consumption-trend">↘ -0.5 kW from last hour</div>
                             <div class="h-20 mt-4 w-full">
                                 <svg class="w-full h-full" viewBox="0 0 100 50">
                                     <rect x="5" y="40" width="10" height="10" fill="#fef9c3" rx="2"></rect>
@@ -98,15 +99,15 @@
                         <svg class="w-full h-64 md:h-full" viewBox="0 0 300 200">
                             <circle cx="30" cy="30" r="25" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
                             <text x="30" y="35" font-size="24" text-anchor="middle">☀️</text>
-                            <text x="30" y="65" font-size="11" text-anchor="middle" font-weight="600">4.1 kW</text>
+                            <text id="flow-solar-value" x="30" y="65" font-size="11" text-anchor="middle" font-weight="600">4.1 kW</text>
                             
                             <circle cx="150" cy="110" r="25" fill="#fef9c3" stroke="#facc15" stroke-width="2"/>
                             <text x="150" y="115" font-size="24" text-anchor="middle">🏡</text>
-                            <text x="150" y="145" font-size="11" text-anchor="middle" font-weight="600">1.2 kW</text>
+                            <text id="flow-home-value" x="150" y="145" font-size="11" text-anchor="middle" font-weight="600">1.2 kW</text>
                             
                             <circle cx="270" cy="30" r="25" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
                             <text x="270" y="35" font-size="24" text-anchor="middle">🔋</text>
-                            <text x="270" y="65" font-size="11" text-anchor="middle" font-weight="600">+2.9 kW</text>
+                            <text id="flow-battery-value" x="270" y="65" font-size="11" text-anchor="middle" font-weight="600">+2.9 kW</text>
                             
                             <defs>
                                 <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -124,17 +125,17 @@
                     <div class="space-y-6">
                         <div class="bg-white p-6 rounded-xl shadow-lg text-center card-hover">
                             <h3 class="text-lg font-semibold text-gray-700 mb-4">🔋 Battery Status</h3>
-                            <div class="relative w-28 h-48 border-4 border-gray-800 rounded-xl mx-auto p-1 bg-gray-100">
-                                <div class="absolute bottom-1 left-1 right-1 h-3/4 bg-gradient-to-t from-green-600 to-green-400 rounded-lg transition-all duration-500"></div>
-                                <span class="absolute inset-0 flex items-center justify-center text-4xl font-bold text-white drop-shadow-lg">75%</span>
+                            <div class="relative w-28 h-48 border-4 border-gray-800 rounded-xl mx-auto p-1 bg-gray-100 overflow-hidden">
+                                <div class="battery-fill absolute bottom-0 left-0 right-0 rounded-lg transition-all duration-500" style="height: 75%;"></div>
+                                <span id="battery-percent" class="absolute inset-0 flex items-center justify-center text-4xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] z-10">75%</span>
                             </div>
                             <div class="mt-4 text-sm text-gray-600">
-                                <div>Charging at <span class="font-semibold text-green-600">2.9 kW</span></div>
-                                <div class="mt-1">Full in ~45 min</div>
+                                <div id="battery-status">Charging at <span class="font-semibold text-green-600">2.9 kW</span></div>
+                                <div id="battery-time" class="mt-1">Full in ~45 min</div>
                             </div>
                         </div>
                         
-                        <div class="bg-gradient-to-br from-green-100 to-emerald-100 p-6 rounded-xl shadow-lg border-2 border-green-300 card-hover">
+                        <div id="smart-tip" class="bg-gradient-to-br from-green-100 to-emerald-100 p-6 rounded-xl shadow-lg border-2 border-green-300 card-hover">
                             <h3 class="text-lg font-semibold text-green-900 mb-3 flex items-center">
                                 <span class="text-2xl mr-2">💡</span> Smart Tip
                             </h3>
@@ -183,8 +184,8 @@
                             </svg>
                         </div>
                         <p class="mt-4 text-gray-700">
-                            You were <span class="text-2xl font-bold text-green-600">92%</span> energy independent last month, 
-                            <span class="font-semibold text-green-600">beating your goal</span> of 90%! 🎉
+                            You were <span class="text-2xl font-bold text-green-600"><span id="independence-value">92</span>%</span> energy independent last month, 
+                            <span id="independence-status"><span class="font-semibold text-green-600">beating your goal</span></span> of <span id="independence-goal">90</span>%! 🎉
                         </p>
                     </div>
                     
@@ -215,8 +216,8 @@
                             </svg>
                         </div>
                         <p class="mt-4 text-gray-700">
-                            You saved an estimated <span class="text-2xl font-bold text-green-600">$180</span> last month.
-                            <span class="block mt-2 text-sm text-gray-600">Total savings this year: <span class="font-semibold text-green-600">$980</span></span>
+                            You saved an estimated <span class="text-2xl font-bold text-green-600">$<span id="savings-value">195</span></span> last month.
+                            <span class="block mt-2 text-sm text-gray-600">Total savings this year: <span class="font-semibold text-green-600">$<span id="total-savings">1075</span></span></span>
                         </p>
                     </div>
                 </div>
@@ -307,7 +308,7 @@
                             <button id="contact-expert-btn" class="bg-green-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-green-700 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
                                 <span>📞</span> Contact Expert Now
                             </button>
-                            <button class="bg-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200">
+                            <button id="false-alarm-btn" class="bg-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200">
                                 Mark as False Alarm
                             </button>
                         </div>
@@ -342,6 +343,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="false-alarm-status" class="bg-white p-6 rounded-2xl shadow-lg hidden">
+                        <div class="text-center">
+                            <div class="text-6xl mb-4">✓</div>
+                            <h4 class="text-2xl font-bold text-gray-800 mb-3">Alert Dismissed</h4>
+                            <p class="text-gray-600 mb-4">This alert has been marked as a false alarm and will not be sent to your consultant.</p>
+                            
+                            <div class="bg-blue-50 p-5 rounded-xl">
+                                <p class="text-sm text-blue-800">💡 <strong>Tip:</strong> If you continue to see similar alerts, consider checking your system settings or running a diagnostic test.</p>
+                            </div>
+
+                            <button id="return-to-dashboard" class="mt-6 bg-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-700 transition-all duration-200">
+                                Return to Dashboard
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -358,6 +375,7 @@
         </div>
     </div>
 
+    <script src="monitor-app.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
